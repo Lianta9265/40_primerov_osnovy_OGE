@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Синтаксический практикум (40 заданий ОГЭ) | Лианта</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #f0f9f8 0%, #fff8f0 100%);
+            --card-bg: #ffffff;
+            --turquoise: #17a2b8;
+            --turquoise-light: #e0f7fa;
+            --turquoise-glow: rgba(23, 162, 184, 0.25);
+            --amber: #f59e0b;
+            --honey-light: #fef3c7;
+            --coral: #ff6f61;
+            --terracotta: #d9534f;
+            --text-main: #263238;
+            --border-radius: 18px;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            margin: 0;
+            padding: 25px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 940px;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 12px 35px rgba(23, 162, 184, 0.12), 0 4px 12px rgba(245, 158, 11, 0.08);
+            border: 2px solid transparent;
+            background-image: linear-gradient(#fff, #fff), linear-gradient(135deg, var(--turquoise), var(--amber), var(--coral));
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 22px;
+            border-bottom: 2px dashed #ccebeb;
+            padding-bottom: 18px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            background: linear-gradient(90deg, var(--turquoise), var(--terracotta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+            font-weight: 800;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .sentence-select {
+            padding: 8px 14px;
+            border-radius: 14px;
+            border: 1.5px solid var(--amber);
+            background: #fffdf9;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.92rem;
+            font-weight: 600;
+            max-width: 310px;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 3px 10px rgba(245, 158, 11, 0.14);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .sentence-select:hover, .sentence-select:focus {
+            border-color: var(--coral);
+            box-shadow: 0 0 12px rgba(255, 111, 97, 0.25);
+        }
+
+        .page-indicator {
+            font-size: 0.92rem;
+            background: linear-gradient(135deg, var(--turquoise-light), var(--honey-light));
+            padding: 8px 16px;
+            border-radius: 25px;
+            color: #0e6f7e;
+            font-weight: 700;
+            border: 1.5px solid var(--turquoise);
+            box-shadow: 0 0 12px var(--turquoise-glow);
+            white-space: nowrap;
+        }
+
+        .task-box {
+            background: #fcffff;
+            border: 2px solid #b2ebf2;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 22px;
+            box-shadow: inset 0 0 20px rgba(23, 162, 184, 0.04), 0 6px 18px rgba(0, 0, 0, 0.03);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .task-box:hover {
+            box-shadow: inset 0 0 20px rgba(23, 162, 184, 0.06), 0 8px 24px var(--turquoise-glow);
+        }
+
+        .instruction-text {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-weight: 600;
+            color: #455a64;
+            font-size: 0.98rem;
+        }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            background: linear-gradient(to right, #f4fbfb, #fffaf2);
+            padding: 14px 20px;
+            border-radius: 14px;
+            border: 1.5px solid #ffd599;
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.1);
+            margin-bottom: 22px;
+        }
+
+        .toolbar-label {
+            font-weight: 700;
+            font-size: 0.92rem;
+            color: #37474f;
+        }
+
+        .color-picker-group, .role-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .color-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2.5px solid #fff;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .color-btn:hover {
+            transform: scale(1.12);
+        }
+
+        .color-btn.active {
+            transform: scale(1.22);
+            box-shadow: 0 0 0 2.5px var(--text-main), 0 4px 12px rgba(0,0,0,0.25);
+        }
+
+        .role-btn {
+            background: #ffffff;
+            border: 2px solid #b2ebf2;
+            padding: 8px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #00796b;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        }
+
+        .role-btn:hover {
+            border-color: var(--turquoise);
+            box-shadow: 0 0 10px var(--turquoise-glow);
+        }
+
+        .role-btn.active {
+            background: linear-gradient(135deg, var(--turquoise), #138496);
+            color: #ffffff;
+            border-color: var(--turquoise);
+            box-shadow: 0 4px 12px var(--turquoise-glow);
+        }
+
+        .sentence-wrapper {
+            background: #ffffff;
+            border: 1.5px solid #e0f2f1;
+            border-left: 5px solid var(--amber);
+            border-radius: 12px;
+            padding: 20px 22px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .sentence-text {
+            font-size: 1.32rem;
+            line-height: 2.2;
+            margin: 0;
+            user-select: none;
+        }
+
+        .word-token {
+            display: inline-block;
+            padding: 0 3px;
+            margin-right: 4px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .word-token:hover {
+            background-color: rgba(23, 162, 184, 0.1);
+        }
+
+        .role-subject {
+            text-decoration-line: underline;
+            text-decoration-style: solid;
+            text-decoration-thickness: 3px;
+            text-underline-offset: 6px;
+        }
+
+        .role-predicate {
+            text-decoration-line: underline;
+            text-decoration-style: double;
+            text-decoration-thickness: 2.5px;
+            text-underline-offset: 6px;
+        }
+
+        .feedback-box {
+            margin-top: 18px;
+            padding: 15px 20px;
+            border-radius: 12px;
+            display: none;
+            font-size: 0.98rem;
+            line-height: 1.5;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .feedback-correct {
+            background: linear-gradient(135deg, #e6fcf5, #d3f9d8);
+            border: 1.5px solid #2b8a3e;
+            color: #1b5e20;
+            box-shadow: 0 4px 14px rgba(43, 138, 62, 0.14);
+        }
+
+        .feedback-wrong {
+            background: linear-gradient(135deg, #fff5f5, #ffe3e3);
+            border: 1.5px solid var(--coral);
+            color: #8b1e1e;
+            box-shadow: 0 4px 14px rgba(255, 111, 97, 0.16);
+        }
+
+        .feedback-title {
+            font-weight: 800;
+            font-size: 1.05rem;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .answer-container {
+            margin-top: 14px;
+            padding: 14px 18px;
+            background: linear-gradient(135deg, #fffbeb, #fff1f0);
+            border: 1.5px solid var(--amber);
+            border-radius: 12px;
+            display: none;
+            font-size: 0.98rem;
+            color: #4a3520;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.12);
+        }
+
+        .btn-action {
+            background: linear-gradient(135deg, var(--turquoise), #117a8b);
+            color: white;
+            border: 1.5px solid #0f6674;
+            padding: 11px 22px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 4px 14px var(--turquoise-glow);
+            transition: all 0.2s ease;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(23, 162, 184, 0.38);
+        }
+
+        .btn-check {
+            background: linear-gradient(135deg, #20c997, #12b886);
+            border: 1.5px solid #0ca678;
+            box-shadow: 0 4px 14px rgba(18, 184, 134, 0.28);
+        }
+
+        .btn-check:hover {
+            box-shadow: 0 6px 18px rgba(18, 184, 134, 0.42);
+        }
+
+        .btn-answer {
+            background: linear-gradient(135deg, var(--amber), var(--coral));
+            border: 1.5px solid #e67e22;
+            box-shadow: 0 4px 14px rgba(255, 111, 97, 0.28);
+            margin-left: auto;
+        }
+
+        .btn-answer:hover {
+            box-shadow: 0 6px 18px rgba(255, 111, 97, 0.42);
+        }
+
+        .btn-prev {
+            background: #ffffff;
+            color: #546e7a;
+            border: 1.5px solid #cfd8dc;
+            box-shadow: none;
+        }
+
+        .btn-prev:hover {
+            background: #f5f7f8;
+            border-color: #90a4ae;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 22px;
+        }
+
+        .right-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .journal-container {
+            margin-top: 32px;
+            padding: 20px;
+            background: #fffdfb;
+            border: 2px solid #ffd8cc;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(217, 83, 79, 0.06);
+        }
+
+        .journal-container h3 {
+            margin-top: 0;
+            color: var(--terracotta);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .journal-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 12px;
+            font-size: 0.92rem;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #f5c6cb;
+        }
+
+        .journal-table th, .journal-table td {
+            padding: 11px 14px;
+            text-align: left;
+            border-bottom: 1px solid #f8d7da;
+        }
+
+        .journal-table th {
+            background: linear-gradient(90deg, #ffeae6, #fff5e6);
+            color: #a94442;
+            font-weight: 700;
+        }
+
+        .badge-error {
+            background: #ffe3e3;
+            color: #c92a2a;
+            border: 1px solid #ffa8a8;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: inline-block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Синтаксический практикум: ОГЭ № 2</h1>
+        <div class="nav-controls">
+            <select id="sentenceSelect" class="sentence-select" onchange="loadTask(parseInt(this.value))" title="Быстрый переход к предложению"></select>
+            <div class="page-indicator" id="pageIndicator">Страница 1 из 40</div>
+        </div>
+    </header>
+
+    <div class="task-box">
+        <p class="instruction-text">
+            Выделите грамматические основы. Выберите цвет основы, затем роль слова (одна черта — подлежащее, две — сказуемое) и нажмите на слово. Повторный клик снимает выделение.
+        </p>
+        
+        <div class="toolbar">
+            <span class="toolbar-label">Цвет основы:</span>
+            <div class="color-picker-group">
+                <button class="color-btn active" title="Кораллово-красный" style="background-color: #e63946;" data-color="#e63946" onclick="selectColor('#e63946', this)"></button>
+                <button class="color-btn" title="Бирюзово-синий" style="background-color: #0077b6;" data-color="#0077b6" onclick="selectColor('#0077b6', this)"></button>
+                <button class="color-btn" title="Изумрудно-зеленый" style="background-color: #2a9d8f;" data-color="#2a9d8f" onclick="selectColor('#2a9d8f', this)"></button>
+                <button class="color-btn" title="Янтарно-золотой" style="background-color: #f59f00;" data-color="#f59f00" onclick="selectColor('#f59f00', this)"></button>
+            </div>
+            
+            <span class="toolbar-label" style="margin-left: 10px;">Член предложения:</span>
+            <div class="role-group">
+                <button class="role-btn active" data-role="subject" onclick="selectRole('subject', this)">Подлежащее ( <u>&nbsp;&nbsp;&nbsp;&nbsp;</u> )</button>
+                <button class="role-btn" data-role="predicate" onclick="selectRole('predicate', this)">Сказуемое ( <u style="text-decoration-style: double;">&nbsp;&nbsp;&nbsp;&nbsp;</u> )</button>
+            </div>
+
+            <button class="btn-action btn-answer" onclick="showAnswer()">Показать ответ</button>
+        </div>
+
+        <div class="sentence-wrapper">
+            <div class="sentence-text" id="sentenceContainer"></div>
+        </div>
+
+        <div class="feedback-box" id="feedbackBox">
+            <span class="feedback-title" id="feedbackTitle"></span>
+            <div id="feedbackReason"></div>
+        </div>
+
+        <div class="answer-container" id="answerBox">
+            <strong>Эталонный разбор:</strong> <span id="correctAnswerText"></span>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="btn-action btn-prev" id="prevBtn" onclick="changePage(-1)">← Назад</button>
+        <div class="right-controls">
+            <button class="btn-action btn-check" onclick="verifyCurrentTask()">Проверить</button>
+            <button class="btn-action" onclick="goNext()">Далее →</button>
+        </div>
+    </div>
+
+    <div class="journal-container">
+        <h3>📋 Журнал ошибок ученика</h3>
+        <table class="journal-table" id="journalTable">
+            <thead>
+                <tr>
+                    <th style="width: 80px;">№ стр.</th>
+                    <th>Предложение</th>
+                    <th style="width: 280px;">Статус / Ошибка</th>
+                </tr>
+            </thead>
+            <tbody id="journalBody">
+                <tr>
+                    <td colspan="3" style="text-align: center; color: #888;">Пока нет записей. Ошибки и подсказки будут фиксироваться здесь.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    const tasks = [
+        {
+            id: 1,
+            text: "А мех полярных медведей выглядит белым, он лишён пигментной окраски, и шерстинки полые.",
+            subjects: ["мех", "он", "шерстинки"],
+            predicates: ["выглядит", "белым", "лишён", "полые"],
+            clauses: [
+                { subj: ["мех"], pred: ["выглядит", "белым"] },
+                { subj: ["он"], pred: ["лишён"] },
+                { subj: ["шерстинки"], pred: ["полые"] }
+            ],
+            answer: "1) мех (подл.) — выглядит белым (сост. именное сказ.); 2) он (подл.) — лишён (сказ.); 3) шерстинки (подл.) — полые (сказ.)."
+        },
+        {
+            id: 2,
+            text: "Язык — это продукт общественной деятельности, отличительная особенность общества.",
+            subjects: ["язык"],
+            predicates: ["продукт", "особенность"],
+            clauses: [
+                { subj: ["язык"], pred: ["продукт", "особенность"] }
+            ],
+            answer: "Язык (подл.) — продукт, особенность (однородные именные сказ.)."
+        },
+        {
+            id: 3,
+            text: "Без языка не было бы самого человека, потому что всё то, что есть в нём человеческого, связано с языком, выражается и закрепляется в языке.",
+            subjects: ["всё", "то", "что"],
+            predicates: ["не", "было", "бы", "есть", "связано", "выражается", "закрепляется"],
+            clauses: [
+                { subj: [], pred: ["не", "было", "бы"] },
+                { subj: ["всё", "то"], pred: ["связано", "выражается", "закрепляется"] },
+                { subj: ["что"], pred: ["есть"] }
+            ],
+            answer: "1) не было бы (безличное сказ.); 2) всё то (подл.) — связано, выражается, закрепляется (однородные сказ.); 3) что (подл.) — есть (сказ.)."
+        },
+        {
+            id: 4,
+            text: "Это нам демонстрирует лишь одну из задач путешественника.",
+            subjects: ["это"],
+            predicates: ["демонстрирует"],
+            clauses: [
+                { subj: ["это"], pred: ["демонстрирует"] }
+            ],
+            answer: "Это (подл.) — демонстрирует (сказ.)."
+        },
+        {
+            id: 5,
+            text: "Как художник создаёт пейзажную картину, так и целый народ постепенно, невольно даже, быть может, штрих за штрихом на протяжении столетий создаёт ландшафт и пейзаж своей страны.",
+            subjects: ["художник", "народ"],
+            predicates: ["создаёт"],
+            clauses: [
+                { subj: ["художник"], pred: ["создаёт"] },
+                { subj: ["народ"], pred: ["создаёт"] }
+            ],
+            answer: "1) художник (подл.) — создаёт (сказ.); 2) народ (подл.) — создаёт (сказ.)."
+        },
+        {
+            id: 6,
+            text: "Немалую долю в ландшафт и пейзаж страны привносили и десятки тысяч помещичьих усадеб с парками, системами прудов.",
+            subjects: ["десятки", "тысяч", "усадеб"],
+            predicates: ["привносили"],
+            clauses: [
+                { subj: ["десятки", "тысяч", "усадеб"], pred: ["привносили"] }
+            ],
+            answer: "десятки тысяч усадеб (подл.-словосочетание) — привносили (сказ.)."
+        },
+        {
+            id: 7,
+            text: "Этот ген отвечает за продукцию одного из ферментов печени, помогающих обезвреживать опасные для человека химические соединения.",
+            subjects: ["ген"],
+            predicates: ["отвечает"],
+            clauses: [
+                { subj: ["ген"], pred: ["отвечает"] }
+            ],
+            answer: "ген (подл.) — отвечает (сказ.)."
+        },
+        {
+            id: 8,
+            text: "Дело в том, что, по мнению учёных, в этом случае рис станет устойчивым к пестицидам и промышленным загрязнениям, попадающим в почву.",
+            subjects: ["дело", "рис"],
+            predicates: ["в", "том", "станет", "устойчивым"],
+            clauses: [
+                { subj: ["дело"], pred: ["в", "том"] },
+                { subj: ["рис"], pred: ["станет", "устойчивым"] }
+            ],
+            answer: "1) Дело (подл.) — в том (сказ.); 2) рис (подл.) — станет устойчивым (сост. именное сказ.)."
+        },
+        {
+            id: 9,
+            text: "Суммарная мощность последних на нашей планете оценивается учёными от одного до шести миллиардов киловатт, причём первое из этих чисел намного превышает показатели энергетического потенциала всех рек земного шара.",
+            subjects: ["мощность", "первое", "из", "этих", "чисел"],
+            predicates: ["оценивается", "превышает"],
+            clauses: [
+                { subj: ["мощность"], pred: ["оценивается"] },
+                { subj: ["первое", "из", "этих", "чисел"], pred: ["превышает"] }
+            ],
+            answer: "1) мощность (подл.) — оценивается (сказ.); 2) первое из этих чисел (подл.-словосочетание) — превышает (сказ.)."
+        },
+        {
+            id: 10,
+            text: "Самыми большими ресурсами приливной энергии обладают Россия, Франция, Канада, Великобритания, Австралия, Аргентина, США.",
+            subjects: ["россия", "франция", "канада", "великобритания", "австралия", "аргентина", "сша"],
+            predicates: ["обладают"],
+            clauses: [
+                { subj: ["россия", "франция", "канада", "великобритания", "австралия", "аргентина", "сша"], pred: ["обладают"] }
+            ],
+            answer: "Россия, Франция, Канада, Великобритания, Австралия, Аргентина, США (однородные подл.) — обладают (сказ.)."
+        },
+        {
+            id: 11,
+            text: "Поэтому вопрос о роли науки в формировании и в выработке новых ценностей современного мира становится основным вопросом научного сообщества, системы образования, а также средств массовой информации.",
+            subjects: ["вопрос"],
+            predicates: ["становится", "основным", "вопросом"],
+            clauses: [
+                { subj: ["вопрос"], pred: ["становится", "основным", "вопросом"] }
+            ],
+            answer: "вопрос (подл.) — становится основным вопросом (сост. именное сказ.)."
+        },
+        {
+            id: 12,
+            text: "Искусство читать — это искусство чувствовать и мыслить.",
+            subjects: ["искусство", "читать"],
+            predicates: ["искусство", "чувствовать", "мыслить"],
+            clauses: [
+                { subj: ["искусство", "читать"], pred: ["искусство", "чувствовать", "мыслить"] }
+            ],
+            answer: "Искусство читать (подл.) — искусство чувствовать и мыслить (сост. именное сказ.)."
+        },
+        {
+            id: 13,
+            text: "Дважды в сутки вода приливает на берег и дважды в сутки отступает: там, где берег полог, вода подходит, а при отливе отходит на несколько километров от берега.",
+            subjects: ["вода", "берег"],
+            predicates: ["приливает", "отступает", "полог", "подходит", "отходит"],
+            clauses: [
+                { subj: ["вода"], pred: ["приливает", "отступает"] },
+                { subj: ["берег"], pred: ["полог"] },
+                { subj: ["вода"], pred: ["подходит", "отходит"] }
+            ],
+            answer: "1) вода (подл.) — приливает, отступает (сказ.); 2) берег (подл.) — полог (сказ.); 3) вода (подл.) — подходит, отходит (сказ.)."
+        },
+        {
+            id: 14,
+            text: "В 1967 г. во Франции была пущена первая приливная электростанция, а затем подобную опытную электростанцию создали и в России, вблизи Мурманска.",
+            subjects: ["электростанция"],
+            predicates: ["была", "пущена", "создали"],
+            clauses: [
+                { subj: ["электростанция"], pred: ["была", "пущена"] },
+                { subj: [], pred: ["создали"] }
+            ],
+            answer: "1) электростанция (подл.) — была пущена (сказ.); 2) создали (односоставное неопр.-личн. сказ.)."
+        },
+        {
+            id: 15,
+            text: "Наиболее активен этот процесс в горах и на плоскогорьях в жарком и влажном климате.",
+            subjects: ["процесс"],
+            predicates: ["активен"],
+            clauses: [
+                { subj: ["процесс"], pred: ["активен"] }
+            ],
+            answer: "процесс (подл.) — активен (краткое прил. в роли сказ.)."
+        },
+        {
+            id: 16,
+            text: "В результате возникает огромная масса обломков, которая постепенно перемещается по планете в направлении наиболее низких её участков.",
+            subjects: ["масса", "которая"],
+            predicates: ["возникает", "перемещается"],
+            clauses: [
+                { subj: ["масса"], pred: ["возникает"] },
+                { subj: ["которая"], pred: ["перемещается"] }
+            ],
+            answer: "1) масса (подл.) — возникает (сказ.); 2) которая (подл.) — перемещается (сказ.)."
+        },
+        {
+            id: 17,
+            text: "Культура человека выражается не только в умении говорить, но и в умении слушать.",
+            subjects: ["культура"],
+            predicates: ["выражается"],
+            clauses: [
+                { subj: ["культура"], pred: ["выражается"] }
+            ],
+            answer: "Культура (подл.) — выражается (сказ.)."
+        },
+        {
+            id: 18,
+            text: "Если даже захочешь возразить собеседнику, терпеливо выслушай его до конца, не перебивай, возражение может и не понадобиться.",
+            subjects: ["возражение"],
+            predicates: ["захочешь", "возразить", "выслушай", "не", "перебивай", "может", "не", "понадобиться"],
+            clauses: [
+                { subj: [], pred: ["захочешь", "возразить"] },
+                { subj: [], pred: ["выслушай", "не", "перебивай"] },
+                { subj: ["возражение"], pred: ["может", "не", "понадобиться"] }
+            ],
+            answer: "1) захочешь возразить (сказ., односост.); 2) выслушай, не перебивай (сказ., односост.); 3) возражение (подл.) — может не понадобиться (сказ.)."
+        },
+        {
+            id: 19,
+            text: "Хотя идея построить судно, которое будет погружаться под воду и всплывать по желанию экипажа, достаточно стара, первые действующие подводные лодки появились только в XIX веке.",
+            subjects: ["идея", "которое", "лодки"],
+            predicates: ["стара", "будет", "погружаться", "всплывать", "появились"],
+            clauses: [
+                { subj: ["идея"], pred: ["стара"] },
+                { subj: ["которое"], pred: ["будет", "погружаться", "всплывать"] },
+                { subj: ["лодки"], pred: ["появились"] }
+            ],
+            answer: "1) идея (подл.) — стара (сказ.); 2) которое (подл.) — будет погружаться, всплывать (сказ.); 3) подводные лодки (подл.) — появились (сказ.)."
+        },
+        {
+            id: 20,
+            text: "А в начале XX века появились технологии, позволившие таким лодкам выходить в открытое море, погружаться на несколько часов и из глубины наносить торпедные удары по кораблям, находящимся на поверхности.",
+            subjects: ["технологии"],
+            predicates: ["появились"],
+            clauses: [
+                { subj: ["технологии"], pred: ["появились"] }
+            ],
+            answer: "технологии (подл.) — появились (сказ.)."
+        },
+        {
+            id: 21,
+            text: "Каждый из нас обязан беречь родную природу, потому что она является главным источником жизни на Земле.",
+            subjects: ["каждый", "из", "нас", "она"],
+            predicates: ["обязан", "беречь", "является", "источником"],
+            clauses: [
+                { subj: ["каждый", "из", "нас"], pred: ["обязан", "беречь"] },
+                { subj: ["она"], pred: ["является", "источником"] }
+            ],
+            answer: "1) Каждый из нас (подл.-словосочетание) — обязан беречь (сост. глаг. сказ.); 2) она (подл.) — является источником (сост. именное сказ.)."
+        },
+        {
+            id: 22,
+            text: "Большинство туристов было очаровано красотой горного озера, вода в котором оказалась удивительно прозрачной.",
+            subjects: ["большинство", "туристов", "вода"],
+            predicates: ["было", "очаровано", "оказалась", "прозрачной"],
+            clauses: [
+                { subj: ["большинство", "туристов"], pred: ["было", "очаровано"] },
+                { subj: ["вода"], pred: ["оказалась", "прозрачной"] }
+            ],
+            answer: "1) Большинство туристов (подл.-словосочетание) — было очаровано (сказ.); 2) вода (подл.) — оказалась прозрачной (сост. именное сказ.)."
+        },
+        {
+            id: 23,
+            text: "Один из самых надёжных способов сохранить здоровье — это регулярные прогулки на свежем воздухе.",
+            subjects: ["один", "из", "способов"],
+            predicates: ["прогулки"],
+            clauses: [
+                { subj: ["один", "из", "способов"], pred: ["прогулки"] }
+            ],
+            answer: "Один из способов (подл.-словосочетание) — прогулки (именное сказ. с нулевой связкой)."
+        },
+        {
+            id: 24,
+            text: "Несколько человек из нашей группы решили подняться на вершину холма, откуда открывался прекрасный вид на долину.",
+            subjects: ["несколько", "человек", "вид"],
+            predicates: ["решили", "подняться", "открывался"],
+            clauses: [
+                { subj: ["несколько", "человек"], pred: ["решили", "подняться"] },
+                { subj: ["вид"], pred: ["открывался"] }
+            ],
+            answer: "1) Несколько человек (подл.-словосочетание) — решили подняться (сост. глаг. сказ.); 2) вид (подл.) — открывался (сказ.)."
+        },
+        {
+            id: 25,
+            text: "Мать с дочерью долго стояли у окна и смотрели, как крупными хлопьями падает первый снег.",
+            subjects: ["мать", "с", "дочерью", "снег"],
+            predicates: ["стояли", "смотрели", "падает"],
+            clauses: [
+                { subj: ["мать", "с", "дочерью"], pred: ["стояли", "смотрели"] },
+                { subj: ["снег"], pred: ["падает"] }
+            ],
+            answer: "1) Мать с дочерью (подл.-словосочетание) — стояли и смотрели (однородные сказ.); 2) снег (подл.) — падает (сказ.)."
+        },
+        {
+            id: 26,
+            text: "Вдоль аллеи росли два старых дуба, кроны которых были густыми и раскидистыми.",
+            subjects: ["два", "дуба", "кроны"],
+            predicates: ["росли", "были", "густыми", "раскидистыми"],
+            clauses: [
+                { subj: ["два", "дуба"], pred: ["росли"] },
+                { subj: ["кроны"], pred: ["были", "густыми", "раскидистыми"] }
+            ],
+            answer: "1) два дуба (подл.-словосочетание) — росли (сказ.); 2) кроны (подл.) — были густыми и раскидистыми (сост. именное сказ.)."
+        },
+        {
+            id: 27,
+            text: "Многие из этих рукописей представляют собой ценнейшие памятники древнерусской литературы.",
+            subjects: ["многие", "из", "этих", "рукописей"],
+            predicates: ["представляют", "собой", "памятники"],
+            clauses: [
+                { subj: ["многие", "из", "этих", "рукописей"], pred: ["представляют", "собой", "памятники"] }
+            ],
+            answer: "Многие из этих рукописей (подл.-словосочетание) — представляют собой памятники (сост. именное сказ.)."
+        },
+        {
+            id: 28,
+            text: "Байкал — самое глубокое озеро на планете, и его вода славится своей невероятной чистотой.",
+            subjects: ["байкал", "вода"],
+            predicates: ["озеро", "славится"],
+            clauses: [
+                { subj: ["байкал"], pred: ["озеро"] },
+                { subj: ["вода"], pred: ["славится"] }
+            ],
+            answer: "1) Байкал (подл.) — озеро (сост. именное сказ.); 2) вода (подл.) — славится (сказ.)."
+        },
+        {
+            id: 29,
+            text: "Часть картин известного художника была передана в дар городскому музею, который стал настоящей гордостью жителей.",
+            subjects: ["часть", "картин", "который"],
+            predicates: ["была", "передана", "стал", "гордостью"],
+            clauses: [
+                { subj: ["часть", "картин"], pred: ["была", "передана"] },
+                { subj: ["который"], pred: ["стал", "гордостью"] }
+            ],
+            answer: "1) Часть картин (подл.-словосочетание) — была передана (сказ.); 2) который (подл.) — стал гордостью (сост. именное сказ.)."
+        },
+        {
+            id: 30,
+            text: "Никто из присутствующих не мог дать точного ответа на этот сложный вопрос, хотя решение казалось очевидным.",
+            subjects: ["никто", "из", "присутствующих", "решение"],
+            predicates: ["не", "мог", "дать", "казалось", "очевидным"],
+            clauses: [
+                { subj: ["никто", "из", "присутствующих"], pred: ["не", "мог", "дать"] },
+                { subj: ["решение"], pred: ["казалось", "очевидным"] }
+            ],
+            answer: "1) Никто из присутствующих (подл.-словосочетание) — не мог дать (сост. глаг. сказ.); 2) решение (подл.) — казалось очевидным (сост. именное сказ.)."
+        },
+        {
+            id: 31,
+            text: "Главной целью экспедиции было изучение редких видов растений, произрастающих в условиях вечной мерзлоты.",
+            subjects: ["изучение"],
+            predicates: ["было", "целью"],
+            clauses: [
+                { subj: ["изучение"], pred: ["было", "целью"] }
+            ],
+            answer: "изучение (подл.) — было целью (сост. именное сказ., обратный порядок)."
+        },
+        {
+            id: 32,
+            text: "Чтение классической литературы делает речь человека богаче и выразительнее, учит глубоко мыслить.",
+            subjects: ["чтение"],
+            predicates: ["делает", "богаче", "выразительнее", "учит", "мыслить"],
+            clauses: [
+                { subj: ["чтение"], pred: ["делает", "богаче", "выразительнее", "учит", "мыслить"] }
+            ],
+            answer: "Чтение (подл.) — делает богаче и выразительнее (сост. именное сказ.), учит мыслить (сост. глаг. сказ.)."
+        },
+        {
+            id: 33,
+            text: "Ряд важных открытий в области медицины был сделан учёными в конце прошлого столетия.",
+            subjects: ["ряд", "открытий"],
+            predicates: ["был", "сделан"],
+            clauses: [
+                { subj: ["ряд", "открытий"], pred: ["был", "сделан"] }
+            ],
+            answer: "Ряд открытий (подл.-словосочетание) — был сделан (сказ.)."
+        },
+        {
+            id: 34,
+            text: "Пушкин для русской литературы — это начало всех начал, символ национального самосознания.",
+            subjects: ["пушкин"],
+            predicates: ["начало", "символ"],
+            clauses: [
+                { subj: ["пушкин"], pred: ["начало", "символ"] }
+            ],
+            answer: "Пушкин (подл.) — начало, символ (однородные именные сказ.)."
+        },
+        {
+            id: 35,
+            text: "Двое друзей вышли на рассвете из дома, чтобы успеть к первому поезду, который отправлялся в шесть утра.",
+            subjects: ["двое", "друзей", "который"],
+            predicates: ["вышли", "успеть", "отправлялся"],
+            clauses: [
+                { subj: ["двое", "друзей"], pred: ["вышли"] },
+                { subj: [], pred: ["успеть"] },
+                { subj: ["который"], pred: ["отправлялся"] }
+            ],
+            answer: "1) Двое друзей (подл.-словосочетание) — вышли (сказ.); 2) успеть (сказ.); 3) который (подл.) — отправлялся (сказ.)."
+        },
+        {
+            id: 36,
+            text: "Млечный Путь — это гигантская звёздная система, в которой находится наша Солнечная система.",
+            subjects: ["млечный", "путь", "солнечная", "система"],
+            predicates: ["система", "находится"],
+            clauses: [
+                { subj: ["млечный", "путь"], pred: ["система"] },
+                { subj: ["солнечная", "система"], pred: ["находится"] }
+            ],
+            answer: "1) Млечный Путь (подл.) — система (сост. именное сказ.); 2) Солнечная система (подл.-словосочетание) — находится (сказ.)."
+        },
+        {
+            id: 37,
+            text: "Множество звёзд ярко сияло на безоблачном ночном небе, и воздух был наполнен ароматом цветущих трав.",
+            subjects: ["множество", "звёзд", "воздух"],
+            predicates: ["сияло", "был", "наполнен"],
+            clauses: [
+                { subj: ["множество", "звёзд"], pred: ["сияло"] },
+                { subj: ["воздух"], pred: ["был", "наполнен"] }
+            ],
+            answer: "1) Множество звёзд (подл.-словосочетание) — сияло (сказ.); 2) воздух (подл.) — был наполнен (сост. именное сказ.)."
+        },
+        {
+            id: 38,
+            text: "Всякий из нас способен преодолеть любые трудности, если цель по-настоящему важна.",
+            subjects: ["всякий", "из", "нас", "цель"],
+            predicates: ["способен", "преодолеть", "важна"],
+            clauses: [
+                { subj: ["всякий", "из", "нас"], pred: ["способен", "преодолеть"] },
+                { subj: ["цель"], pred: ["важна"] }
+            ],
+            answer: "1) Всякий из нас (подл.-словосочетание) — способен преодолеть (сост. именное сказ.); 2) цель (подл.) — важна (краткое прил. в роли сказ.)."
+        },
+        {
+            id: 39,
+            text: "Слово не воробей: вылетит — не поймаешь, поэтому нужно всегда следить за своей речью.",
+            subjects: ["слово"],
+            predicates: ["не", "воробей", "вылетит", "не", "поймаешь", "нужно", "следить"],
+            clauses: [
+                { subj: ["слово"], pred: ["не", "воробей"] },
+                { subj: [], pred: ["вылетит"] },
+                { subj: [], pred: ["не", "поймаешь"] },
+                { subj: [], pred: ["нужно", "следить"] }
+            ],
+            answer: "1) Слово (подл.) — не воробей (сост. именное сказ.); 2) вылетит (сказ.); 3) не поймаешь (сказ.); 4) нужно следить (сказ.)."
+        },
+        {
+            id: 40,
+            text: "Три сестры с увлечением читали новую книгу, сюжет которой становился всё более захватывающим.",
+            subjects: ["три", "сестры", "сюжет"],
+            predicates: ["читали", "становился", "более", "захватывающим"],
+            clauses: [
+                { subj: ["три", "сестры"], pred: ["читали"] },
+                { subj: ["сюжет"], pred: ["становился", "более", "захватывающим"] }
+            ],
+            answer: "1) Три сестры (подл.-словосочетание) — читали (сказ.); 2) сюжет (подл.) — становился более захватывающим (сост. именное сказ.)."
+        }
+    ];
+
+    let currentPage = 0;
+    let currentColor = "#e63946";
+    let currentRole = "subject";
+    let errorsLog = [];
+
+    const sentenceContainer = document.getElementById('sentenceContainer');
+    const pageIndicator = document.getElementById('pageIndicator');
+    const sentenceSelect = document.getElementById('sentenceSelect');
+    const feedbackBox = document.getElementById('feedbackBox');
+    const feedbackTitle = document.getElementById('feedbackTitle');
+    const feedbackReason = document.getElementById('feedbackReason');
+    const answerBox = document.getElementById('answerBox');
+    const correctAnswerText = document.getElementById('correctAnswerText');
+    const journalBody = document.getElementById('journalBody');
+
+    function cleanWord(str) {
+        return str.toLowerCase().replace(/^[«"„(—–-]+|[»"“).,!?:;—–-]+$/g, "").trim();
+    }
+
+    function initSelect() {
+        sentenceSelect.innerHTML = '';
+        tasks.forEach((task, idx) => {
+            const option = document.createElement('option');
+            option.value = idx;
+            const preview = task.text.length > 36 ? task.text.substring(0, 36) + '...' : task.text;
+            option.textContent = `№ ${task.id}. ${preview}`;
+            sentenceSelect.appendChild(option);
+        });
+    }
+
+    function loadTask(index) {
+        currentPage = index;
+        pageIndicator.innerText = `Страница ${currentPage + 1} из ${tasks.length}`;
+        sentenceSelect.value = currentPage;
+        answerBox.style.display = 'none';
+        feedbackBox.style.display = 'none';
+        feedbackBox.className = 'feedback-box';
+
+        const text = tasks[currentPage].text;
+        const words = text.split(/\s+/);
+        sentenceContainer.innerHTML = '';
+
+        words.forEach((word, idx) => {
+            const span = document.createElement('span');
+            span.className = 'word-token';
+            span.innerText = word;
+            span.dataset.id = idx;
+            span.dataset.clean = cleanWord(word);
+            span.onclick = () => toggleWordStyle(span);
+            sentenceContainer.appendChild(span);
+        });
+    }
+
+    function selectColor(color, btn) {
+        currentColor = color;
+        document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    function selectRole(role, btn) {
+        currentRole = role;
+        document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    function toggleWordStyle(span) {
+        if (
+            span.dataset.marked === "true" &&
+            span.dataset.color === currentColor &&
+            span.dataset.role === currentRole
+        ) {
+            span.classList.remove('role-subject', 'role-predicate');
+            span.style.textDecorationColor = "";
+            span.dataset.marked = "false";
+            span.dataset.color = "";
+            span.dataset.role = "";
+            return;
+        }
+
+        span.classList.remove('role-subject', 'role-predicate');
+        span.classList.add(currentRole === 'subject' ? 'role-subject' : 'role-predicate');
+        span.style.textDecorationColor = currentColor;
+        span.dataset.marked = "true";
+        span.dataset.color = currentColor;
+        span.dataset.role = currentRole;
+    }
+
+    function verifyCurrentTask() {
+        const task = tasks[currentPage];
+        const markedSpans = Array.from(sentenceContainer.querySelectorAll('span[data-marked="true"]'));
+
+        if (markedSpans.length === 0) {
+            showFeedback(false, "Ни одно слово не выделено. Выберите цвет основы и роль (подлежащее или сказуемое) и нажмите на нужные слова.");
+            logError(currentPage + 1, task.text, "Неверно: нет выделений");
+            return;
+        }
+
+        const userSubj = markedSpans.filter(s => s.dataset.role === "subject").map(s => s.dataset.clean);
+        const userPred = markedSpans.filter(s => s.dataset.role === "predicate").map(s => s.dataset.clean);
+
+        const expectedSubj = task.subjects.map(cleanWord);
+        const expectedPred = task.predicates.map(cleanWord);
+
+        const missingSubj = expectedSubj.filter(w => !userSubj.includes(w));
+        const extraSubj = userSubj.filter(w => !expectedSubj.includes(w));
+        const missingPred = expectedPred.filter(w => !userPred.includes(w));
+        const extraPred = userPred.filter(w => !expectedPred.includes(w));
+
+        const reasons = [];
+
+        if (missingSubj.length > 0) {
+            reasons.push(`не выделены слова подлежащего: <b>${missingSubj.join(", ")}</b>`);
+        }
+        if (extraSubj.length > 0) {
+            reasons.push(`лишние или неверно отнесённые к подлежащему слова: <b>${extraSubj.join(", ")}</b>`);
+        }
+        if (missingPred.length > 0) {
+            reasons.push(`не выделены слова сказуемого: <b>${missingPred.join(", ")}</b>`);
+        }
+        if (extraPred.length > 0) {
+            reasons.push(`лишние или неверно отнесённые к сказуемому слова: <b>${extraPred.join(", ")}</b>`);
+        }
+
+        if (reasons.length === 0 && task.clauses && task.clauses.length > 1) {
+            const nonEmptyClauses = task.clauses.filter(c => c.subj.length > 0 || c.pred.length > 0);
+            const clauseColors = new Set();
+            let mixedInsideClause = false;
+
+            for (const clause of nonEmptyClauses) {
+                const clauseWords = [...clause.subj.map(cleanWord), ...clause.pred.map(cleanWord)];
+                const colorsForClause = markedSpans
+                    .filter(s => clauseWords.includes(s.dataset.clean))
+                    .map(s => s.dataset.color);
+                const uniqueColors = [...new Set(colorsForClause)];
+
+                if (uniqueColors.length > 1) {
+                    mixedInsideClause = true;
+                }
+                if (uniqueColors[0]) {
+                    clauseColors.add(uniqueColors[0]);
+                }
+            }
+
+            if (mixedInsideClause) {
+                reasons.push("внутри одной грамматической основы использованы разные цвета — выберите один цвет для каждой основы");
+            } else if (clauseColors.size < nonEmptyClauses.length) {
+                reasons.push(`в предложении ${nonEmptyClauses.length} грамматические основы — выделите каждую основу своим цветом`);
+            }
+        }
+
+        if (reasons.length === 0) {
+            showFeedback(true, "Все грамматические основы и члены предложения отмечены точно. Можно переходить дальше!");
+        } else {
+            const formattedReason = "Причина: " + reasons.join("; ") + ".";
+            showFeedback(false, formattedReason.charAt(0).toUpperCase() + formattedReason.slice(1));
+            logError(currentPage + 1, task.text, reasons[0].replace(/<[^>]*>/g, ""));
+        }
+    }
+
+    function showFeedback(isCorrect, message) {
+        feedbackBox.style.display = 'block';
+        feedbackBox.className = 'feedback-box ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
+        feedbackTitle.innerText = isCorrect ? "✔ Верно!" : "✖ Неверно";
+        feedbackReason.innerHTML = message;
+    }
+
+    function showAnswer() {
+        correctAnswerText.innerText = tasks[currentPage].answer;
+        answerBox.style.display = 'block';
+        logError(currentPage + 1, tasks[currentPage].text, "Запрошен правильный ответ");
+    }
+
+    function logError(pageNum, sentence, statusText) {
+        const shortStatus = statusText.length > 55 ? statusText.substring(0, 55) + "…" : statusText;
+        if (!errorsLog.some(err => err.page === pageNum && err.status === shortStatus)) {
+            errorsLog.push({ page: pageNum, sentence: sentence, status: shortStatus });
+            updateJournalUI();
+        }
+    }
+
+    function updateJournalUI() {
+        if (errorsLog.length === 0) {
+            journalBody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: #888;">Пока нет записей. Ошибки и подсказки будут фиксироваться здесь.</td></tr>`;
+            return;
+        }
+
+        journalBody.innerHTML = '';
+        errorsLog.forEach(err => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><b>${err.page}</b></td>
+                <td>${err.sentence.substring(0, 52)}...</td>
+                <td><span class="badge-error">${err.status}</span></td>
+            `;
+            journalBody.appendChild(tr);
+        });
+    }
+
+    function goNext() {
+        if (currentPage < tasks.length - 1) {
+            loadTask(currentPage + 1);
+        } else {
+            alert("Поздравляю! Вы прошли все 40 страниц упражнения.");
+        }
+    }
+
+    function changePage(direction) {
+        let newPage = currentPage + direction;
+        if (newPage >= 0 && newPage < tasks.length) {
+            loadTask(newPage);
+        }
+    }
+
+    initSelect();
+    loadTask(0);
+</script>
+
+</body>
+</html>
